@@ -1,10 +1,11 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %} {% block content %} {% load socialaccount %}
 
-<section >
+<section>
   <div class="container px-6 py-12 h-full">
     <div class="flex justify-center items-center flex-wrap h-full g-6 text-gray-800">
-      <div class=" mx-auto">
-        <form action="" method='post'>
+      <div class="text-[40px] outline outline-1 rounded-lg outline-blue-300 mx-auto p-4">
+        <h4>Log in</h4>
+        <form action="" method="post">
           {% csrf_token %}
           <!-- Email input -->
           <div class="mb-6">
@@ -22,18 +23,44 @@
               type="password"
               class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
               placeholder="Password"
-              name='password'
+              name="password"
             />
           </div>
 
           <!-- Submit button -->
-          <button type="submit " class="bg-blue-500 p-4 px-6 text-white text-[18px]  rounded-md transition duration-150 ease-in-out ">
+          <button
+            type="submit "
+            class="bg-blue-500 p-4 px-6 text-white text-[18px] rounded-md transition duration-150 ease-in-out"
+          >
             Sign in
           </button>
+          <div class="h-[1px] my-2 bg-blue-300"></div>
+          <a href="{% provider_login_url 'google' %}">
+          <button
+            type=""
+            class="text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 mr-2 mb-2"
+          >
+            <svg
+              class="mr-2 -ml-1 w-4 h-4"
+              aria-hidden="true"
+              focusable="false"
+              data-prefix="fab"
+              data-icon="google"
+              role="img"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 488 512"
+            >
+              <path
+                fill="currentColor"
+                d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"
+              ></path>
+            </svg>
+            Sign in with Google
+          </button></a>
         </form>
       </div>
     </div>
   </div>
 </section>
 
- {% endblock content %}
+{% endblock content %}
