@@ -1,4 +1,7 @@
 from django.shortcuts import render, redirect
+import os
+import uuid
+import boto3
 
 # Create your views here.
 
@@ -10,5 +13,8 @@ def home(request):
 
 
 def heroes(request):
+    if request.method == "POST":
+
+        pass
 
     return render(request, 'heroes.html')
