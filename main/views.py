@@ -11,4 +11,4 @@ def home(request):
 
 def heroes(request):
 
-    return render(request, 'dashboard.html')
+    return render(request, 'heroes.html')
