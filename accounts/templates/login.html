@@ -1,0 +1,39 @@
+{% extends 'base.html' %} {% block content %}
+
+<section >
+  <div class="container px-6 py-12 h-full">
+    <div class="flex justify-center items-center flex-wrap h-full g-6 text-gray-800">
+      <div class=" mx-auto">
+        <form action="" method='post'>
+          {% csrf_token %}
+          <!-- Email input -->
+          <div class="mb-6">
+            <input
+              type="text"
+              class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+              placeholder="Email address"
+              name="username"
+            />
+          </div>
+
+          <!-- Password input -->
+          <div class="mb-6">
+            <input
+              type="password"
+              class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+              placeholder="Password"
+              name='password'
+            />
+          </div>
+
+          <!-- Submit button -->
+          <button type="submit " class="bg-blue-500 p-4 px-6 text-white text-[18px]  rounded-md transition duration-150 ease-in-out ">
+            Sign in
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+ {% endblock content %}

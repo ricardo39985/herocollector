@@ -1,16 +1,19 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static '/css/style.css'%}" />
+    <script defer src="{%static 'js/main.js'%}"></script>
     <title>{% block title %}{% endblock title %}</title>
-</head>
-<body>
-
-    {% block content %}{% endblock content %}
-
-</body>
+  </head>
+  <body>
+    {% include 'nav.html' %} {% if messages %} {% for message in messages %}
+    <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
+      <span class="font-medium">Danger alert!</span> {{message}}
+    </div>
+    {% endfor %} {% endif %} {% block content %}{% endblock content %}
+  </body>
 </html>
