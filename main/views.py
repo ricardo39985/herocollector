@@ -9,7 +9,6 @@ import boto3
 
 def home(request):
     # request.user.hero_set.all().first().photo_set.all().first()
-    # breakpoint()
     if request.user.is_authenticated:
         return redirect('heroes')
     return render(request, 'home.html')
@@ -18,16 +17,18 @@ def home(request):
 def heroes(request):
     if not request.user.is_authenticated:
         return redirect('login' )
-    return render(request, 'heroes.html')
+    context = {"heroes":Hero.objects.filter(users=request.user),
+               "owner":request.user}
+    return render(request, 'heroes.html',context)
 
 
 def create_hero(request):
     print(request.FILES)
     if request.method == "POST":
         hero = Hero.objects.create(
-            name=request.POST['name'], description=request.POST['description'], user_id=request.user.id)
+            name=request.POST['name'], description=request.POST['description'], user=request.user)
+        hero.users.add(request.user)
         photo_file = request.FILES.get('photo-file',None)
-        print(photo_file.size)
         if photo_file:
             s3 = boto3.client('s3')
             # need a unique "key" for S3 instead of using
@@ -45,3 +46,6 @@ def create_hero(request):
                 print('An error occurred uploading file to S3')
                 print(e)
     return redirect('heroes')
+def show_hero(request):
+    return render(request, 'show_hero.html')
+    pass

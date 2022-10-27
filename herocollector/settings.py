@@ -18,7 +18,6 @@ environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
@@ -28,7 +27,8 @@ SECRET_KEY = 'django-insecure-h=b(oabu7pm(a@3gfe-2@-9al^dbe0j3f7bb^vrn63i#5ez$cg
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
+CSRF_TRUSTED_ORIGINS = ['https://9944-100-4-198-108.ngrok.io']
 
 
 # Application definition
@@ -46,14 +46,27 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'allauth.socialaccount.providers.google', # for Google OAuth 2.0
+    'allauth.socialaccount.providers.google',  # for Google OAuth 2.0
 ]
 # CUSTOM
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend'
 ]
+SOCIAL_AUTH_PIPELINE = (
 
+    'social.pipeline.social_auth.social_details',
+    'social.pipeline.social_auth.social_uid',
+    'social.pipeline.social_auth.auth_allowed',
+    'social.pipeline.social_auth.social_user',
+    'social.pipeline.user.get_username',
+    'social.pipeline.user.create_user',
+    'social.pipeline.social_auth.associate_user',
+    'social.pipeline.social_auth.load_extra_data',
+    'social.pipeline.user.user_details',
+    'accounts.pipeline.get_avatar', # This is the path of your pipeline.py
+    #and get_avatar is the function.
+)
 SITE_ID = 1
 LOGIN_REDIRECT_URL = '/'
 
@@ -62,14 +75,17 @@ SOCIALACCOUNT_PROVIDERS = {
         'SCOPE': [
             'profile',
             'email',
+            'https://www.googleapis.com/auth/userinfo.profile'
+
         ],
         'AUTH_PARAMS': {
             'access_type': 'online',
-        }
+        },
+
     }
 }
-SOCIALACCOUNT_LOGIN_ON_GET=True
-#END CUSTOM
+SOCIALACCOUNT_LOGIN_ON_GET = True
+# END CUSTOM
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -122,8 +138,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-        'OPTIONS':{
-            'min_length':4,
+        'OPTIONS': {
+            'min_length': 4,
         }
     },
     # {

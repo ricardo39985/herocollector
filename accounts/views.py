@@ -42,3 +42,7 @@ def register_user(request):
             return redirect('home')
 
     return render(request, 'register.html')
+
+def social_sign_in(request):
+    breakpoint()
+    pass
