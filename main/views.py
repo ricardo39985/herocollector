@@ -9,13 +9,15 @@ import boto3
 
 def home(request):
     # request.user.hero_set.all().first().photo_set.all().first()
-
+    # breakpoint()
     if request.user.is_authenticated:
         return redirect('heroes')
     return render(request, 'home.html')
 
 
 def heroes(request):
+    if not request.user.is_authenticated:
+        return redirect('login' )
     return render(request, 'heroes.html')
 
 
