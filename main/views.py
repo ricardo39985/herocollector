@@ -8,25 +8,30 @@ import boto3
 
 
 def home(request):
+    # request.user.hero_set.all().first().photo_set.all().first()
+
     if request.user.is_authenticated:
         return redirect('heroes')
     return render(request, 'home.html')
 
 
 def heroes(request):
-
-
     return render(request, 'heroes.html')
+
+
 def create_hero(request):
+    print(request.FILES)
     if request.method == "POST":
-        hero= Hero.objects.create(name=request.POST['name'], description=request.POST['description'],user_id=request.user.id)
-        photo_file = request.FILES['photo']
-        breakpoint()
+        hero = Hero.objects.create(
+            name=request.POST['name'], description=request.POST['description'], user_id=request.user.id)
+        photo_file = request.FILES.get('photo-file',None)
+        print(photo_file.size)
         if photo_file:
             s3 = boto3.client('s3')
             # need a unique "key" for S3 instead of using
             # the filename that was sent by the user
-            key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+            key = uuid.uuid4().hex[:6] + \
+                photo_file.name[photo_file.name.rfind('.'):]
             print(key)
             try:
                 bucket = os.environ['S3_BUCKET']
