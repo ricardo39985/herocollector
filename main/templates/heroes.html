@@ -2,7 +2,7 @@
 <div class="grid grid-cols-6 gap-4">
   <div class="rounded-lg text-gray-100 ml-8 mt-12 bg-slate-400 outline outline-2 shadow-lg outline-cyan-300 py-2">
     <h1 class="text-[35px] px-2">New Hero</h1>
-    <form action={% url 'add_hero' %} method="POST" class="flex flex-col space-y-4 px-2">
+    <form action={% url 'add_hero' %} method="POST" enctype="multipart/form-data" class="flex flex-col space-y-4 px-2">
       {% csrf_token %}
       <div class="">
         <label for="name">Name</label>
@@ -22,8 +22,7 @@
           class="bg-gray-400 text-[12px] w-[99%] h-[102px] outline outline-1 outline-gray-200 rounded-lg"
         ></textarea>
       </div>
-
-    <input type="file" name="photo" id="">
+      <input type="file" name="photo-file" id="">
 
       <button
         type="submit"
