@@ -12,7 +12,7 @@ class Hero(models.Model):
 
 class Photo(models.Model):
   url = models.CharField(max_length=200)
-  hero = models.ForeignKey(Hero, on_delete=models.CASCADE)
+  hero = models.OneToOneField(Hero, on_delete=models.CASCADE)
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)
 
